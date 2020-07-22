@@ -29,7 +29,6 @@
 
 - [Table of contents](#table-of-contents)
 - [Quick start](#quick-start)
-  - [This project requires the MDB React Pro license and its library](#this-project-requires-the-mdb-react-pro-license-and-its-library)
 - [Bugs and feature requests](#bugs-and-feature-requests)
 - [Contributing](#contributing)
 - [Community](#community)
