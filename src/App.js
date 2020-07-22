@@ -25,7 +25,6 @@ class App extends React.Component {
       <Router>
         <ScrollToTop>
           <div className="flyout">
-            <Navbar />
             <main>
               <Routes />
             </main>
