@@ -39,23 +39,7 @@
 
 ## [](#quick-start)Quick start
 
-Several quick start options are available:
-
 - Clone the repo: `https://github.com/aichner/Status.git`
-
-### This project requires the MDB React Pro license and its library
-
-You can either:
-
-Purchase MDB React Pro
-
-- Download the zip folder and extract it
-- Move the `mdbreact-X.XX.X.tgz` to the local copy of this repository
-
-or use MDB React Free
-
-- Update "mdbreact" in `package.json` to the latest version of MDB (such as 4.19.0)
-- After installing, make sure to exclude all elements that require MDB React Pro
 
 How to start this application?
 
