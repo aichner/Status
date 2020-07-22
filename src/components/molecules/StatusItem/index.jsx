@@ -12,14 +12,15 @@ import { MDBListGroupItem, MDBIcon } from "mdbreact";
 import axios from "axios";
 //#endregion
 
-//#region > URLS
+//#region > Constant Variables
 const PROXY_URL = "https://cors-anywhere.herokuapp.com/";
-////#endregion
+//#endregion
 
 //#region > Components
 class StatusItem extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = { url: PROXY_URL + this.props.url, degradation: false };
   }
 
@@ -52,8 +53,6 @@ class StatusItem extends React.Component {
           .then((response) => {
             const status = response.status;
             const receiveDate = new Date().getTime();
-
-            console.log(response);
 
             switch (status) {
               case 200:
