@@ -29,11 +29,11 @@ class StatusItem extends React.Component {
     this.checkDependencies();
 
     // Refresh every minute
-    this.interval = setInterval(() => this.getStatus(), 60000);
+    //this.interval = setInterval(() => this.getStatus(), 60000);
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
+    //clearInterval(this.interval);
   }
 
   getStatus() {
