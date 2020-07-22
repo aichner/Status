@@ -1,13 +1,13 @@
 <p align="center">
   <a href="https://www.aichner-christian.com/" target="_blank" rel="noopener noreferrer">
-    <img src="https://github.com/aichner/Status/blob/master/src/assets/status.jpg?raw=true" alt="Agency Status Logo" height="200" style="max-width: 100%" />
+    <img src="https://github.com/aichner/Status/blob/master/src/assets/status.jpg?raw=true" alt="Agency Status Logo" height="120" style="max-width: 100%" />
   </a>
 </p>
 
 <h3 align="center">Aichner Cloud Status</h3>
 
 <p align="center">
-  Automated availability checks for our projects.
+  Automated availability checks for our projects and its dependencies.
   <br>
   <br>
   <a href="https://github.com/aichner/Status/issues/new?template=bug_report.md">Report bug</a>
