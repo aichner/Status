@@ -20,52 +20,236 @@ const PROXY_URL = "https://cors-anywhere.herokuapp.com/";
 class StatusItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { url: this.props.url };
+    this.state = { url: PROXY_URL + this.props.url, degradation: false };
   }
 
   componentDidMount() {
     this.getStatus();
+    this.checkDependencies();
+
+    // Refresh every minute
+    this.interval = setInterval(() => this.getStatus(), 60000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   getStatus() {
-    axios.get(PROXY_URL + this.state.url).then((response) => {
-      const status = response.status;
+    const sendDate = new Date().getTime();
+    this.setState(
+      {
+        status: undefined,
+      },
+      () => {
+        axios({
+          url: this.state.url,
+          method: "GET",
+          headers: {
+            "content-type": "text/plain",
+          },
+        })
+          .then((response) => {
+            const status = response.status;
+            const receiveDate = new Date().getTime();
 
-      switch (status) {
-        case 200:
-          this.setState({
-            status: { code: status, message: "online" },
+            console.log(response);
+
+            switch (status) {
+              case 200:
+                this.setState({
+                  status: {
+                    code: status,
+                    message: response.statusText,
+                    data: response,
+                    timeElapsed: receiveDate - sendDate,
+                  },
+                });
+                break;
+              default:
+                this.setState({
+                  status: {
+                    code: status,
+                    message: response.statusText,
+                    data: response,
+                    timeElapsed: receiveDate - sendDate,
+                  },
+                });
+                break;
+            }
+          })
+          .catch((err) => {
+            const receiveDate = new Date().getTime();
+
+            this.setState({
+              status: {
+                code: err.response.status,
+                message: err.response.statusText,
+                data: err.response,
+                timeElapsed: receiveDate - sendDate,
+              },
+            });
           });
-          break;
-        default:
-          this.setState({
-            status: { code: status, message: response.statusText },
-          });
-          break;
       }
-    });
+    );
   }
 
+  isRedirect = () => {
+    if (this.state.status && this.state.status.code !== 200) {
+      // Check if there is a final url
+      if (this.state.status.data.headers["x-final-url"]) {
+        // Check if the final url is the url we started with
+        if (
+          this.state.status.data.headers["x-final-url"] === this.props.url ||
+          this.state.status.data.headers["x-final-url"].includes(this.props.url)
+        ) {
+          // User has not been redirected
+          return false;
+        } else {
+          // User has been redirected
+          return this.state.status.data.headers["x-final-url"];
+        }
+      } else {
+        // User has (most likely) not been redirected
+        return false;
+      }
+    } else {
+      return false;
+    }
+  };
+
+  checkDependencies = async () => {
+    const { dependencies } = this.props;
+
+    if (dependencies) {
+      dependencies.forEach(async (url) => {
+        if (!this.state.degradation) {
+          await axios({
+            url: PROXY_URL + url,
+            method: "GET",
+            headers: {
+              "content-type": "text/plain",
+            },
+          })
+            .then((response) => {
+              const status = response.status;
+
+              if (status == 200) {
+                this.setState({
+                  degradation: false,
+                });
+              } else {
+                this.setState({
+                  degradation: true,
+                });
+              }
+            })
+            .catch(() => {
+              this.setState({
+                degradation: true,
+              });
+            });
+        }
+      });
+    }
+  };
+
   render() {
+    const isRedirect = this.isRedirect();
+
     return (
       <MDBListGroupItem className="d-flex justify-content-between">
-        <div>{this.state.url}</div>
-
         <div>
-          {this.state.status && (
-            <>
-              {this.state.status.code === 200 ? (
-                <span className="text-success">
-                  {this.state.status.message}
-                  <MDBIcon className="ml-1" icon="check-circle" />
-                </span>
-              ) : (
-                <span className="text-success">
-                  {this.state.status.message}
-                  <MDBIcon className="ml-1" icon="times-circle" />"
+          <span>
+            <span
+              className={
+                this.state.status?.code !== 200 ? "text-muted" : undefined
+              }
+            >
+              <img
+                src={`https://s2.googleusercontent.com/s2/favicons?domain=${this.props.url}`}
+                className="mr-2"
+              />
+              {this.props.url}
+              {isRedirect && (
+                <span>
+                  <MDBIcon icon="angle-right" className="mx-2 blue-text" />
+                  {isRedirect}
                 </span>
               )}
+            </span>
+          </span>
+          {this.state.status && this.state.status.data && (
+            <code className="mr-2 d-block">
+              {this.state.status?.data.headers.server === "cloudflare" && (
+                <MDBIcon icon="cloud" className="orange-text mr-2" />
+              )}
+              {this.state.status.timeElapsed} ms{" "}
+              <span className="text-muted">elapsed</span>
+            </code>
+          )}
+        </div>
+        <div className="text-right">
+          {this.state.status ? (
+            <>
+              {this.state.status.code === 200 ? (
+                <>
+                  {this.state.degradation ? (
+                    <>
+                      <span className="text-warning">
+                        Limited functionality
+                        <MDBIcon className="ml-1" icon="question-circle" />
+                      </span>
+                      <span className="text-muted small d-block">
+                        {this.state.status.code} - {this.state.status.message}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-success">
+                        Running
+                        <MDBIcon className="ml-1" icon="check-circle" />
+                      </span>
+                      <span className="text-muted small d-block">
+                        {this.state.status.code} - {this.state.status.message}
+                      </span>
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  {isRedirect ? (
+                    <>
+                      <span className="text-danger">
+                        Not available
+                        <MDBIcon className="ml-1" icon="times-circle" />
+                      </span>
+                      <span className="text-muted small d-block">
+                        <MDBIcon className="ml-1" icon="plane" />{" "}
+                        {this.state.status.code} - {this.state.status.message}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-danger">
+                        Not available
+                        <MDBIcon className="ml-1" icon="times-circle" />
+                      </span>
+                      <span className="text-muted small d-block">
+                        {this.state.status.code} - {this.state.status.message}
+                      </span>
+                    </>
+                  )}
+                </>
+              )}
             </>
+          ) : (
+            <div className="text-right">
+              <span className="blue-text">
+                <MDBIcon className="ml-1" icon="redo-alt" spin />
+              </span>
+              <span className="text-muted small d-block">Loading</span>
+            </div>
           )}
         </div>
       </MDBListGroupItem>
