@@ -137,7 +137,7 @@ class StatusItem extends React.Component {
             .then((response) => {
               const status = response.status;
 
-              if (status == 200) {
+              if (status === 200) {
                 this.setState({
                   degradation: false,
                 });
@@ -171,6 +171,7 @@ class StatusItem extends React.Component {
             >
               <img
                 src={`https://s2.googleusercontent.com/s2/favicons?domain=${this.props.url}`}
+                alt={this.props.url + " Favicon"}
                 className="mr-2"
               />
               {this.props.url}

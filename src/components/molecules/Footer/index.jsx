@@ -2,8 +2,6 @@
 //> React
 // Contains all the functionality necessary to define React components
 import React from "react";
-// React Router
-import { Link } from "react-router-dom";
 
 //> MDB
 // "Material Design for Bootstrap" is a great UI design framework
