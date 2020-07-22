@@ -1,5 +1,42 @@
 body {
   background: #fff;
+
+  .main-content {
+    span,
+    i {
+      color: #f61a42;
+    }
+  }
+}
+
+#logo {
+  .st0 {
+    fill: #212529;
+  }
+  .st1 {
+    fill: #f61a42;
+  }
+  height: 120px;
+  width: auto;
+  fill: black;
+}
+
+.list-group {
+  .text-muted {
+    text-align: right;
+    color: darken(white, 20%) !important;
+    &.small {
+      font-size: 0.65rem;
+    }
+  }
+
+  code {
+    font-size: 0.7rem;
+  }
+
+  .orange-text {
+    color: transparentize($color: #ff9800, $amount: 0.5) !important;
+  }
 }
 
 a.border.nav-link.border-light.rounded.mr-1 {
@@ -21,6 +58,7 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
 #categories > .col-md-4.mb-5 {
   margin-bottom: 8rem !important;
 }
+
 .sectionPage {
   position: relative;
   top: -15px;

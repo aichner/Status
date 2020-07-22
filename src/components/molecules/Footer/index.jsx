@@ -2,8 +2,6 @@
 //> React
 // Contains all the functionality necessary to define React components
 import React from "react";
-// React Router
-import { Link } from "react-router-dom";
 
 //> MDB
 // "Material Design for Bootstrap" is a great UI design framework
@@ -26,12 +24,13 @@ class Footer extends React.Component {
     if (this.props.location) {
       let i = 1;
       let pathBack = "";
+
       // Check the number of slashes to fix relative links
       while (i < this.props.location.pathname.split("/").length - 1) {
         pathBack += "../";
         i++;
       }
-      console.log(pathBack);
+
       this.setState({
         pathBack,
       });
@@ -43,20 +42,25 @@ class Footer extends React.Component {
         <MDBContainer className="text-center text-md-left py-3">
           <MDBRow className="flex-center">
             <MDBCol md="3" className="text-center">
-              <Link to="about">
+              <a
+                href="https://www.aichner-christian.com/about"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <li className="list-unstyled">About</li>
-              </Link>
-              <Link to="privacy">
-                <li className="list-unstyled">Privacy</li>
-              </Link>
+              </a>
             </MDBCol>
             <MDBCol md="2" className="my-3 text-center">
               <img src={logoImg} alt="Logo" className="img-fluid" />
             </MDBCol>
             <MDBCol md="3" className="text-center">
-              <Link to="contact">
-                <li className="list-unstyled">Contact</li>
-              </Link>
+              <a
+                href="https://www.aichner-christian.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <li className="list-unstyled">Privacy</li>
+              </a>
             </MDBCol>
           </MDBRow>
         </MDBContainer>
@@ -94,7 +98,7 @@ class Footer extends React.Component {
                 )}
                 <span className="pl-2 pr-2">·</span>
                 <a
-                  href="https://github.com/aichner/Gutschein2Go"
+                  href="https://github.com/aichner/Status"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -103,7 +107,7 @@ class Footer extends React.Component {
                 </a>
                 <span className="pl-2 pr-2">·</span>
                 <a
-                  href="https://github.com/aichner/Gutschein2Go/issues/new?template=bug_report.md"
+                  href="https://github.com/aichner/Status/issues/new?template=bug_report.md"
                   rel="noopener noreferrer"
                   target="_blank"
                 >

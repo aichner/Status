@@ -6,140 +6,157 @@ import React from "react";
 //> MDB
 // "Material Design for Bootstrap" is a great UI design framework
 import {
-  MDBEdgeHeader,
-  MDBFreeBird,
   MDBContainer,
   MDBCol,
   MDBRow,
-  MDBCardBody,
   MDBIcon,
-  MDBCard,
-  MDBCardTitle,
-  MDBCardImage,
-  MDBCardText,
+  MDBListGroup,
+  MDBBtn,
 } from "mdbreact";
-
-//> Images
-// Logo of MDB React
-import MDBLogo from "../../../assets/mdb-react-small.png";
-// Logo of Advertisement Agency Christian Aichner
-import AgencyLogo from "../../../assets/agency-small.png";
-// Image of someone coding
-import Projects from "../../../assets/content/projects.jpg";
 
 //> CSS
 import "./HomePage.scss";
+
+//> Components
+import StatusItem from "../../molecules/StatusItem";
+
+//> Images
+// Logo of Advertisement Agency Christian Aichner
+import { ReactComponent as Logo } from "../../../assets/logo.svg";
+//#endregion
+
+//#region > Data
+const groups = [
+  {
+    name: "Pharmaziegasse 5 Kosmetik GmbH",
+    urls: [
+      {
+        url: "https://www.pharmaziegasse.at",
+        dependencies: ["https://www.aichnerc.at"],
+      },
+      { url: "https://charm.pharmaziegasse.at", dependencies: [] },
+    ],
+  },
+  {
+    name: "SNEK - Social Network for Engineers",
+    urls: [
+      { url: "https://snek.at", dependencies: ["https://engine.snek.at"] },
+      { url: "https://engine.snek.at", dependencies: [] },
+    ],
+  },
+  {
+    name: "Black Wolf Coffee / Blue Lupi",
+    urls: [
+      {
+        url: "https://www.kaffeerudel.at",
+        dependencies: ["https://lupi.aichner.cloud"],
+      },
+      { url: "https://bluelupi.at", dependencies: [] },
+      { url: "https://nocoffee.at", dependencies: [] },
+      { url: "https://lupi.aichner.cloud", dependencies: [] },
+    ],
+  },
+  {
+    name: "Sonnenarm",
+    urls: [{ url: "https://www.sonnenarm.at", dependencies: [] }],
+  },
+  {
+    name: "Aichner Cloud",
+    urls: [
+      { url: "https://www.aichner-christian.com", dependencies: [] },
+      { url: "https://www.aichnerc.at", dependencies: [] },
+      { url: "https://www.kisy.at", dependencies: [] },
+      { url: "https://www.aichner.industries", dependencies: [] },
+    ],
+  },
+  {
+    name: "SithCult",
+    urls: [{ url: "https://www.sithcult.com", dependencies: [] }],
+  },
+  {
+    name: "Marstime",
+    urls: [{ url: "https://www.marstime.org", dependencies: [] }],
+  },
+  {
+    name: "Kojin",
+    urls: [{ url: "https://www.kojin.at", dependencies: [] }],
+  },
+  {
+    name: "Gutschein2Go",
+    urls: [
+      {
+        url: "https://www.gutschein2go.at",
+        dependencies: ["https://www.g2g.at"],
+      },
+      {
+        url: "https://www.g2g.at",
+        dependencies: ["https://www.gutschein2go.at"],
+      },
+    ],
+  },
+  {
+    name: "Naturvertrieb",
+    urls: [{ url: "https://www.naturvertrieb.at", dependencies: [] }],
+  },
+];
 //#endregion
 
 //#region > Components
 class HomePage extends React.Component {
   render() {
     return (
-      <>
-        <MDBEdgeHeader color="bg-red" className="sectionPage" />
-        <div className="mt-3 mb-5">
-          <MDBFreeBird>
-            <MDBRow>
-              <MDBCol
-                md="10"
-                className="mx-auto float-none white py-2 px-2 border"
-              >
-                <MDBCardBody className="text-center">
-                  <h2 className="h2-responsive mb-4">
-                    <strong className="font-weight-bold">
-                      <img
-                        src={AgencyLogo}
-                        alt="mdbreact-logo"
-                        className="pr-2"
-                      />
-                      +
-                      <img
-                        src={MDBLogo}
-                        alt="mdbreact-logo"
-                        className="pr-2 pl-2"
-                      />
-                      Template App
-                    </strong>
-                  </h2>
-                  <MDBRow />
-                  <p>React Bootstrap with Material Design</p>
-                  <p className="pb-4">
-                    This application shows the actual use of MDB React
-                    components in the application.
-                  </p>
-                  <MDBRow className="d-flex flex-row justify-content-center row">
-                    <a
-                      className="border nav-link border-light rounded mr-1"
-                      href="https://mdbootstrap.com/react/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <MDBIcon icon="graduation-cap" className="mr-2" />
-                      <span className="font-weight-bold">
-                        Official Documentation
-                      </span>
-                    </a>
-                  </MDBRow>
-                </MDBCardBody>
-              </MDBCol>
-            </MDBRow>
-          </MDBFreeBird>
-          <MDBContainer>
-            <MDBRow>
-              <MDBCol md="12" className="mt-4">
-                <h2 className="text-center my-5 font-weight-bold">
-                  Why is it so great?
-                </h2>
-                <p className="text-center text-muted mb-1">
-                  Google has designed a Material Design to make the web more
-                  beautiful and more user-friendly.
-                </p>
-                <p className="text-center text-muted mb-1">
-                  Twitter has created a Bootstrap to support you in faster and
-                  easier development of responsive and effective websites.
-                </p>
-                <p className="text-center text-muted">
-                  We present you a framework containing the best features of
-                  both of them - Material Design for Bootstrap.
-                </p>
-                <hr className="my-5" />
-                <MDBRow id="categories" className="justify-content-center">
-                  <MDBCol md="4">
-                    <MDBCard cascade className="my-3 grey lighten-4">
-                      <MDBCardImage
-                        cascade
-                        className="img-fluid"
-                        src={Projects}
-                      />
-                      <MDBCardBody cascade className="text-center">
-                        <MDBCardTitle>
-                          <MDBIcon
-                            icon="github"
-                            brand
-                            className="dark-text pr-2"
-                          />
-                          <strong>GitHub</strong>
-                        </MDBCardTitle>
-                        <MDBCardText>
-                          Find more of our amazing work and templates on GitHub!
-                        </MDBCardText>
-                        <a
-                          className="btn btn-outline-mdb-color btn-sm btn-rounded d-inline"
-                          href="https://github.com/aichner"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          More
-                        </a>
-                      </MDBCardBody>
-                    </MDBCard>
-                  </MDBCol>
-                </MDBRow>
-              </MDBCol>
-            </MDBRow>
-          </MDBContainer>
+      <MDBContainer className="py-5">
+        <div className="text-center">
+          <div className="mb-4">
+            <Logo id="logo" />
+          </div>
+          <div className="text-center main-content">
+            <MDBIcon icon="cloud" size="2x" />
+            <h2 className="font-weight-bold mb-0">
+              aichner<span>.cloud</span>
+            </h2>
+          </div>
+          <div className="text-muted mb-2">
+            Web Services built and provided by us.
+          </div>
+          <div>
+            <a
+              href="https://www.github.com/aichner"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MDBBtn color="elegant">
+                <MDBIcon fab icon="github" className="pr-1" /> Github
+              </MDBBtn>
+            </a>
+            <a href="https://www.aichner-christian.com/">
+              <MDBBtn color="danger">Homepage</MDBBtn>
+            </a>
+          </div>
         </div>
-      </>
+        <MDBRow className="d-flex justify-content-center">
+          <MDBCol lg="8">
+            <MDBListGroup className="mt-5">
+              {groups.map((group, g) => {
+                return (
+                  <>
+                    <p className="font-weight-bold mb-0 mt-3">{group.name}</p>
+                    {group.urls.map((url, u) => {
+                      return (
+                        <StatusItem
+                          key={u}
+                          url={url.url}
+                          dependencies={url.dependencies}
+                        />
+                      );
+                    })}
+                  </>
+                );
+              })}
+            </MDBListGroup>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
     );
   }
 }
