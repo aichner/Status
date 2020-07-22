@@ -13,7 +13,7 @@ import axios from "axios";
 //#endregion
 
 //#region > Constant Variables
-const PROXY_URL = "https://cors-anywhere.herokuapp.com/";
+const PROXY_URL = process.env.REACT_APP_CORS;
 //#endregion
 
 //#region > Components
@@ -29,11 +29,11 @@ class StatusItem extends React.Component {
     this.checkDependencies();
 
     // Refresh every minute
-    //this.interval = setInterval(() => this.getStatus(), 60000);
+    this.interval = setInterval(() => this.getStatus(), 900000);
   }
 
   componentWillUnmount() {
-    //clearInterval(this.interval);
+    clearInterval(this.interval);
   }
 
   getStatus() {
@@ -82,8 +82,8 @@ class StatusItem extends React.Component {
 
             this.setState({
               status: {
-                code: err.response.status,
-                message: err.response.statusText,
+                code: err.response?.status,
+                message: err.response?.statusText,
                 data: err.response,
                 timeElapsed: receiveDate - sendDate,
               },
@@ -94,7 +94,11 @@ class StatusItem extends React.Component {
   }
 
   isRedirect = () => {
-    if (this.state.status && this.state.status.code !== 200) {
+    if (
+      this.state.status &&
+      this.state.status.code !== 200 &&
+      this.state.status.data
+    ) {
       // Check if there is a final url
       if (this.state.status.data.headers["x-final-url"]) {
         // Check if the final url is the url we started with
