@@ -40,7 +40,7 @@ const groups = [
   {
     name: "SNEK - Social Network for Engineers",
     urls: [
-      { url: "https://snek.at", dependencies: ["https://engine.snek.at"] },
+      { url: "https://www.snek.at", dependencies: ["https://engine.snek.at"] },
       { url: "https://engine.snek.at", dependencies: [] },
     ],
   },
@@ -139,7 +139,7 @@ class HomePage extends React.Component {
             <MDBListGroup className="mt-5">
               {groups.map((group, g) => {
                 return (
-                  <>
+                  <React.Fragment key={g}>
                     <p className="font-weight-bold mb-0 mt-3">{group.name}</p>
                     {group.urls.map((url, u) => {
                       return (
@@ -150,7 +150,7 @@ class HomePage extends React.Component {
                         />
                       );
                     })}
-                  </>
+                  </React.Fragment>
                 );
               })}
             </MDBListGroup>
