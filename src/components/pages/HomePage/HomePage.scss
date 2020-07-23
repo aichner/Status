@@ -28,6 +28,18 @@ body {
     &.small {
       font-size: 0.65rem;
     }
+    a {
+      color: darken(white, 20%) !important;
+    }
+  }
+
+  a {
+    color: #212529;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: darken(blue, 10%);
+    }
   }
 
   code {
@@ -36,6 +48,17 @@ body {
 
   .orange-text {
     color: transparentize($color: #ff9800, $amount: 0.5) !important;
+  }
+
+  .list-group-item {
+    border-left: 4px #ff3547 solid;
+
+    &.status-200 {
+      border-left: 4px #00c851 solid;
+    }
+    &.loading {
+      border-left: 4px #2196f3 solid;
+    }
   }
 }
 

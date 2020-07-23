@@ -94,17 +94,17 @@ class StatusItem extends React.Component {
   }
 
   isRedirect = () => {
-    if (
-      this.state.status &&
-      this.state.status.code !== 200 &&
-      this.state.status.data
-    ) {
+    if (this.state.status && this.state.status.data) {
       // Check if there is a final url
       if (this.state.status.data.headers["x-final-url"]) {
         // Check if the final url is the url we started with
         if (
           this.state.status.data.headers["x-final-url"] === this.props.url ||
-          this.state.status.data.headers["x-final-url"].includes(this.props.url)
+          this.state.status.data.headers["x-final-url"].includes(
+            this.props.url
+              .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
+              .split("/")[0]
+          )
         ) {
           // User has not been redirected
           return false;
@@ -161,7 +161,15 @@ class StatusItem extends React.Component {
     const isRedirect = this.isRedirect();
 
     return (
-      <MDBListGroupItem className="d-flex justify-content-between">
+      <MDBListGroupItem
+        className={
+          this.state.status?.code
+            ? "status-" +
+              this.state.status.code +
+              " d-flex justify-content-between"
+            : "loading d-flex justify-content-between"
+        }
+      >
         <div>
           <span>
             <span
@@ -174,7 +182,15 @@ class StatusItem extends React.Component {
                 alt={this.props.url + " Favicon"}
                 className="mr-2"
               />
-              {this.props.url}
+              <a
+                href={this.props.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {this.props.url}
+              </a>
+            </span>
+            <span className="d-block small text-muted text-left">
               {isRedirect && (
                 <span>
                   <MDBIcon icon="angle-right" className="mx-2 blue-text" />
@@ -191,6 +207,14 @@ class StatusItem extends React.Component {
               {this.state.status.timeElapsed} ms{" "}
               <span className="text-muted">elapsed</span>
             </code>
+          )}
+          {this.props.dependencies.length > 0 && (
+            <span className="mt-1 d-block small text-muted text-left">
+              {this.props.dependencies.length}{" "}
+              {this.props.dependencies.length === 1
+                ? "dependency"
+                : "dependencies"}
+            </span>
           )}
         </div>
         <div className="text-right">
