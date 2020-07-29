@@ -32,9 +32,16 @@ const groups = [
     urls: [
       {
         url: "https://www.pharmaziegasse.at",
-        dependencies: ["https://www.aichnerc.at"],
+        dependencies: [
+          "https://www.aichnerc.at",
+          "https://manage.pharmaziegasse.at/",
+        ],
       },
-      { url: "https://charm.pharmaziegasse.at", dependencies: [] },
+      {
+        url: "https://charm.pharmaziegasse.at",
+        dependencies: ["https://manage.pharmaziegasse.at"],
+      },
+      { url: "https://manage.pharmaziegasse.at", dependencies: [] },
     ],
   },
   {
@@ -49,11 +56,16 @@ const groups = [
     urls: [
       {
         url: "https://www.kaffeerudel.at",
-        dependencies: ["https://lupi.aichner.cloud"],
+        dependencies: [
+          "https://lupi.aichner.cloud",
+          "https://connector.kaffeerudel.at",
+          "https://p.aichner.cloud",
+        ],
       },
       { url: "https://bluelupi.at", dependencies: [] },
       { url: "https://nocoffee.at", dependencies: [] },
       { url: "https://lupi.aichner.cloud", dependencies: [] },
+      { url: "https://connector.kaffeerudel.at", dependencies: [] },
     ],
   },
   {
@@ -67,6 +79,7 @@ const groups = [
       { url: "https://www.aichnerc.at", dependencies: [] },
       { url: "https://www.kisy.at", dependencies: [] },
       { url: "https://www.aichner.industries", dependencies: [] },
+      { url: "https://p.aichner.cloud", dependencies: [] },
     ],
   },
   {
