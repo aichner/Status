@@ -32,9 +32,16 @@ const groups = [
     urls: [
       {
         url: "https://www.pharmaziegasse.at",
-        dependencies: ["https://www.aichnerc.at"],
+        dependencies: [
+          "https://www.aichnerc.at",
+          "https://manage.pharmaziegasse.at/",
+        ],
       },
-      { url: "https://charm.pharmaziegasse.at", dependencies: [] },
+      {
+        url: "https://charm.pharmaziegasse.at",
+        dependencies: ["https://manage.pharmaziegasse.at"],
+      },
+      { url: "https://manage.pharmaziegasse.at", dependencies: [] },
     ],
   },
   {
